@@ -1,5 +1,5 @@
 # The Iron Yard - Ruby / Rails
-## 2015 Q1 Greenville
+## 2015 Q1 DC
 
     James Dabbs
     james@theironyard.com
@@ -111,4 +111,4 @@ Here's a tree of Rails-related concepts (from [Why Learning Rails is Hard](https
 
 ![Rails mindmap](http://i.imgur.com/yAL7GMz.jpg)
 
-We probably won't cover every leaf, but we will at least visit each branch.
+We probably won't cover every leaf, but we will at least visit each branch. Our path should look something [like this](https://github.com/TIY-GVL-ROR-2015-Jan/course-notes/blob/master/timeline.md).

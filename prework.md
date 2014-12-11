@@ -1,5 +1,5 @@
 # Ruby Prework
-### Greenville Q1 2015
+### DC Q1 2015
 
 _James Dabbs (james@theironyard.com)_
 
@@ -17,7 +17,7 @@ Point 2 is not "have internalized every nuance", but I will expect you to at lea
 
 ## Requirements
 
-Review and complete the tasks below by **December 29th**. Any deliverables should be emailed to me by then. If you have any questions, please email - I'll be glad to help (though expect some good-natured shaming if you're pushing the deadline).
+Review and complete the tasks below by **January 20th**. Any deliverables should be emailed to me by then. If you have any questions, please email - I'll be glad to help (though expect some good-natured shaming if you're pushing the deadline).
 
 You will need to sign up for Treehouse to complete some of these tasks. Treehouse is free for 14 days (which should be more than enough to finish the required work), and $25/month after the trial.
 
