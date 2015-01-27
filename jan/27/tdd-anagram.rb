@@ -17,4 +17,14 @@ class TestAnagram < Minitest::Test
     # assert !is_anagram?
     refute is_anagram? [:c,:a,:t], [:b,:a,:t]
   end
+
+  def test_singleton_array
+    assert is_anagram? [:a], [:a]
+  end
+
+  def test_random_array
+    original = [1,2,3,4,5]
+    shuffled = original.shuffle
+    assert is_anagram? original, shuffled
+  end
 end
