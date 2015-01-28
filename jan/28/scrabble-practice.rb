@@ -2,6 +2,8 @@ require "minitest/autorun"
 require 'pry'
 
 #assumes finding all words from set of 3-letter-set
+# Capital is a constant
+Dictionary = ["cat", "at", "bat", "act", "a", "ta"]
 
 def possible_words letters
   possibilities = []
@@ -13,11 +15,9 @@ def possible_words letters
 end
 
 def word_finder letters_to_try
-  # %w(cat at bat act a ta)
-  dictionary = ["cat", "at", "bat", "act", "a", "ta"]
   results = []
   possible_words(letters_to_try).each do |x|
-    if dictionary.include?(x)
+    if Dictionary.include?(x)
       results.push(x)
     end
   end
