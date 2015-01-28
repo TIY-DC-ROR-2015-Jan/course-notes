@@ -3,7 +3,16 @@ require 'pry'
 
 #assumes finding all words from set of 3-letter-set
 # Capital is a constant
-Dictionary = ["cat", "at", "bat", "act", "a", "ta"]
+#Dictionary = ["cat", "at", "bat", "act", "a", "ta"]
+
+# Build up dictionary from reading in file /usr/share/dict/words
+Dictionary = []
+File.open("/usr/share/dict/words").each_line do |line|
+  line.chomp! # remove \n from line
+  if line.length >= 2 && line.length <= 7
+    Dictionary.push line
+  end
+end
 
 def possible_words letters
   possibilities = []
@@ -32,7 +41,7 @@ class TestScrabble < Minitest::Test
   
   def test_is_string
     found_words = word_finder(["c","a","t"])
-    assert_equal found_words.length, 5
+    assert found_words.length >= 5
     assert found_words.include?("act")
     assert !found_words.include?("bat")
   end
