@@ -1,0 +1,714 @@
+HomeCore 1.9.3Std-lib 1.9.3GemsDownloads  
+There was 1 Ruby vulnerability reports in the last 14 days. 1 medium. Most recent: CVE-2014-9490. See details.
+Home Classes Methods
+In Files
+dir.c
+file.c
+io.c
+Parent
+IO
+
+Namespace
+CLASS File::Stat
+Methods
+::absolute_path
+::atime
+::basename
+::blockdev?
+::chardev?
+::chmod
+::chown
+::ctime
+::delete
+::directory?
+::dirname
+::executable?
+::executable_real?
+::exist?
+::exists?
+::expand_path
+::extname
+::file?
+::fnmatch
+::fnmatch?
+::ftype
+::grpowned?
+::identical?
+::join
+::lchmod
+::lchown
+::link
+::lstat
+::mtime
+::new
+::open
+::owned?
+::path
+::pipe?
+::readable?
+::readable_real?
+::readlink
+::realdirpath
+::realpath
+::rename
+::setgid?
+::setuid?
+::size
+::size?
+::socket?
+::split
+::stat
+::sticky?
+::symlink
+::symlink?
+::truncate
+::umask
+::unlink
+::utime
+::world_readable?
+::world_writable?
+::writable?
+::writable_real?
+::zero?
+#atime
+#chmod
+#chown
+#ctime
+#flock
+#lstat
+#mtime
+#path
+#size
+#to_path
+#truncate
+Files
+README.rdoc
+test.ja.large.rdoc
+test.ja.rdoc
+command_line_usage.rdoc
+glossary.rdoc
+proto_rake.rdoc
+rakefile.rdoc
+rational.rdoc
+rake-0.8.7.rdoc
+re.rdoc
+Class/Module Index [+]
+ARGF
+ArgumentError
+Array
+BasicObject
+Bignum
+Binding
+Class
+Comparable
+Complex
+Continuation
+Data
+Dir
+ENV
+EOFError
+Encoding
+Encoding::CompatibilityError
+Encoding::Converter
+Encoding::ConverterNotFoundError
+Encoding::InvalidByteSequenceError
+Encoding::UndefinedConversionError
+EncodingError
+Enumerable
+Enumerator
+Enumerator::Generator
+Enumerator::Yielder
+Errno
+Exception
+FalseClass
+Fiber
+FiberError
+File
+File::Constants
+File::Stat
+FileTest
+Fixnum
+Float
+FloatDomainError
+GC
+GC::Profiler
+Hash
+IO
+IO::WaitReadable
+IO::WaitWritable
+IOError
+IndexError
+Integer
+Interrupt
+Kernel
+KeyError
+LoadError
+LocalJumpError
+Marshal
+MatchData
+Math
+Math::DomainError
+Method
+Module
+Mutex
+NameError
+NilClass
+NoMemoryError
+NoMethodError
+NotImplementedError
+Numeric
+Object
+ObjectSpace
+Proc
+Process
+Process::GID
+Process::Status
+Process::Sys
+Process::UID
+Random
+Range
+RangeError
+Rational
+Regexp
+RegexpError
+RubyVM
+RubyVM::Env
+RubyVM::InstructionSequence
+RuntimeError
+ScriptError
+SecurityError
+Signal
+SignalException
+StandardError
+StopIteration
+String
+Struct
+Symbol
+SyntaxError
+SystemCallError
+SystemExit
+SystemStackError
+Thread
+ThreadError
+ThreadGroup
+Time
+TrueClass
+TypeError
+UnboundMethod
+ZeroDivisionError
+fatal
+unknown
+toggle debugging
+Check them now. Prices Are Starting From $55, Free T-shirt Included In The Pirate Club Plan.ads via Carbon
+File
+
+A File is an abstraction of any file object accessible by the program and is closely associated with class IO File includes the methods of module FileTest as class methods, allowing you to write (for example) File.exist?("foo").
+
+In the description of File methods, permission bits are a platform-specific set of bits that indicate permissions of a file. On Unix-based systems, permissions are viewed as a set of three octets, for the owner, the group, and the rest of the world. For each of these entities, permissions may be set to read, write, or execute the file:
+
+The permission bits 0644 (in octal) would thus be interpreted as read/write for owner, and read-only for group and other. Higher-order bits may also be used to indicate the type of file (plain, directory, pipe, socket, and so on) and various other special features. If the permissions are for a directory, the meaning of the execute bit changes; when set the directory can be searched.
+
+On non-Posix operating systems, there may be only the ability to make a file read-only or read-write. In this case, the remaining permission bits will be synthesized to resemble typical values. For instance, on Windows NT the default permission bits are 0644, which means read/write for owner, read-only for all others. The only change that can be made is to make the file read-only, which is reported as 0444.
+
+Constants
+
+ALT_SEPARATOR
+PATH_SEPARATOR
+SEPARATOR
+Separator
+Public Class Methods
+
+absolute_path(file_name [, dir_string] ) → abs_file_name click to toggle source
+Converts a pathname to an absolute pathname. Relative paths are referenced from the current working directory of the process unless dir_string is given, in which case it will be used as the starting point. If the given pathname starts with a “~” it is NOT expanded, it is treated as a normal directory name.
+
+File.absolute_path("~oracle/bin")       #=> "<relative_path>/~oracle/bin"
+atime(file_name) → time
+Returns the last access time for the named file as a Time object).
+
+File.atime("testfile")   #=> Wed Apr 09 08:51:48 CDT 2003
+basename(file_name [, suffix] ) → base_name
+Returns the last component of the filename given in file_name, which must be formed using forward slashes (“/”) regardless of the separator used on the local file system. If suffix is given and present at the end of file_name, it is removed.
+
+File.basename("/home/gumby/work/ruby.rb")          #=> "ruby.rb"
+File.basename("/home/gumby/work/ruby.rb", ".rb")   #=> "ruby"
+blockdev?(file_name) → true or false
+Returns true if the named file is a block device.
+
+chardev?(file_name) → true or false
+Returns true if the named file is a character device.
+
+chmod(mode_int, file_name, ... ) → integer
+Changes permission bits on the named file(s) to the bit pattern represented by mode_int. Actual effects are operating system dependent (see the beginning of this section). On Unix systems, see chmod(2) for details. Returns the number of files processed.
+
+File.chmod(0644, "testfile", "out")   #=> 2
+chown(owner_int, group_int, file_name,... ) → integer
+Changes the owner and group of the named file(s) to the given numeric owner and group id’s. Only a process with superuser privileges may change the owner of a file. The current owner of a file may change the file’s group to any group to which the owner belongs. A nil or -1 owner or group id is ignored. Returns the number of files processed.
+
+File.chown(nil, 100, "testfile")
+ctime(file_name) → time
+Returns the change time for the named file (the time at which directory information about the file was changed, not the file itself).
+
+Note that on Windows (NTFS), returns creation time (birth time).
+
+File.ctime("testfile")   #=> Wed Apr 09 08:53:13 CDT 2003
+delete(file_name, ...) → integer
+Deletes the named files, returning the number of names passed as arguments. Raises an exception on any error. See also Dir::rmdir.
+
+directory?(file_name) → true or false
+Returns true if the named file is a directory, or a symlink that points at a directory, and false otherwise.
+
+File.directory?(".")
+dirname(file_name ) → dir_name
+Returns all components of the filename given in file_name except the last one. The filename must be formed using forward slashes (“/”) regardless of the separator used on the local file system.
+
+File.dirname("/home/gumby/work/ruby.rb")   #=> "/home/gumby/work"
+executable?(file_name) → true or false
+Returns true if the named file is executable by the effective user id of this process.
+
+executable_real?(file_name) → true or false
+Returns true if the named file is executable by the real user id of this process.
+
+exist?(file_name) → true or false
+Returns true if the named file is a directory, false otherwise.
+
+exists?(file_name) → true or false
+Return true if the named file exists.
+
+expand_path(file_name [, dir_string] ) → abs_file_name
+Converts a pathname to an absolute pathname. Relative paths are referenced from the current working directory of the process unless dir_string is given, in which case it will be used as the starting point. The given pathname may start with a “~”, which expands to the process owner’s home directory (the environment variable HOME must be set correctly). “~user” expands to the named user’s home directory.
+
+File.expand_path("~oracle/bin")           #=> "/home/oracle/bin"
+File.expand_path("../../bin", "/tmp/x")   #=> "/bin"
+extname(path) → string
+Returns the extension (the portion of file name in path after the period).
+
+File.extname("test.rb")         #=> ".rb"
+File.extname("a/b/d/test.rb")   #=> ".rb"
+File.extname("test")            #=> ""
+File.extname(".profile")        #=> ""
+file?(file_name) → true or false
+Returns true if the named file exists and is a regular file.
+
+fnmatch( pattern, path, [flags] ) → (true or false)
+fnmatch?( pattern, path, [flags] ) → (true or false)
+Returns true if path matches against pattern The pattern is not a regular expression; instead it follows rules similar to shell filename globbing. It may contain the following metacharacters:
+
+*
+Matches any file. Can be restricted by other values in the glob. * will match all files; c* will match all files beginning with c; *c will match all files ending with c; and *c* will match all files that have c in them (including at the beginning or end). Equivalent to / .* /x in regexp.
+
+**
+Matches directories recursively or files expansively.
+
+?
+Matches any one character. Equivalent to /.{1}/ in regexp.
+
+[set]
+Matches any one character in set. Behaves exactly like character sets in Regexp, including set negation ([^a-z]).
+
+<code></code>
+Escapes the next metacharacter.
+
+flags is a bitwise OR of the FNM_xxx parameters. The same glob pattern and flags are used by Dir::glob.
+
+File.fnmatch('cat',       'cat')        #=> true  # match entire string
+File.fnmatch('cat',       'category')   #=> false # only match partial string
+File.fnmatch('c{at,ub}s', 'cats')       #=> false # { } isn't supported
+
+File.fnmatch('c?t',     'cat')          #=> true  # '?' match only 1 character
+File.fnmatch('c??t',    'cat')          #=> false # ditto
+File.fnmatch('c*',      'cats')         #=> true  # '*' match 0 or more characters
+File.fnmatch('c*t',     'c/a/b/t')      #=> true  # ditto
+File.fnmatch('ca[a-z]', 'cat')          #=> true  # inclusive bracket expression
+File.fnmatch('ca[^t]',  'cat')          #=> false # exclusive bracket expression ('^' or '!')
+
+File.fnmatch('cat', 'CAT')                     #=> false # case sensitive
+File.fnmatch('cat', 'CAT', File::FNM_CASEFOLD) #=> true  # case insensitive
+
+File.fnmatch('?',   '/', File::FNM_PATHNAME)  #=> false # wildcard doesn't match '/' on FNM_PATHNAME
+File.fnmatch('*',   '/', File::FNM_PATHNAME)  #=> false # ditto
+File.fnmatch('[/]', '/', File::FNM_PATHNAME)  #=> false # ditto
+
+File.fnmatch('\?',   '?')                       #=> true  # escaped wildcard becomes ordinary
+File.fnmatch('\a',   'a')                       #=> true  # escaped ordinary remains ordinary
+File.fnmatch('\a',   '\a', File::FNM_NOESCAPE)  #=> true  # FNM_NOESACPE makes '\' ordinary
+File.fnmatch('[\?]', '?')                       #=> true  # can escape inside bracket expression
+
+File.fnmatch('*',   '.profile')                      #=> false # wildcard doesn't match leading
+File.fnmatch('*',   '.profile', File::FNM_DOTMATCH)  #=> true  # period by default.
+File.fnmatch('.*',  '.profile')                      #=> true
+
+rbfiles = '**' '/' '*.rb' # you don't have to do like this. just write in single string.
+File.fnmatch(rbfiles, 'main.rb')                    #=> false
+File.fnmatch(rbfiles, './main.rb')                  #=> false
+File.fnmatch(rbfiles, 'lib/song.rb')                #=> true
+File.fnmatch('**.rb', 'main.rb')                    #=> true
+File.fnmatch('**.rb', './main.rb')                  #=> false
+File.fnmatch('**.rb', 'lib/song.rb')                #=> true
+File.fnmatch('*',           'dave/.profile')                      #=> true
+
+pattern = '*' '/' '*'
+File.fnmatch(pattern, 'dave/.profile', File::FNM_PATHNAME)  #=> false
+File.fnmatch(pattern, 'dave/.profile', File::FNM_PATHNAME | File::FNM_DOTMATCH) #=> true
+
+pattern = '**' '/' 'foo'
+File.fnmatch(pattern, 'a/b/c/foo', File::FNM_PATHNAME)     #=> true
+File.fnmatch(pattern, '/a/b/c/foo', File::FNM_PATHNAME)    #=> true
+File.fnmatch(pattern, 'c:/a/b/c/foo', File::FNM_PATHNAME)  #=> true
+File.fnmatch(pattern, 'a/.b/c/foo', File::FNM_PATHNAME)    #=> false
+File.fnmatch(pattern, 'a/.b/c/foo', File::FNM_PATHNAME | File::FNM_DOTMATCH) #=> true
+fnmatch?( pattern, path, [flags] ) → (true or false)
+Returns true if path matches against pattern The pattern is not a regular expression; instead it follows rules similar to shell filename globbing. It may contain the following metacharacters:
+
+*
+Matches any file. Can be restricted by other values in the glob. * will match all files; c* will match all files beginning with c; *c will match all files ending with c; and *c* will match all files that have c in them (including at the beginning or end). Equivalent to / .* /x in regexp.
+
+**
+Matches directories recursively or files expansively.
+
+?
+Matches any one character. Equivalent to /.{1}/ in regexp.
+
+[set]
+Matches any one character in set. Behaves exactly like character sets in Regexp, including set negation ([^a-z]).
+
+<code></code>
+Escapes the next metacharacter.
+
+flags is a bitwise OR of the FNM_xxx parameters. The same glob pattern and flags are used by Dir::glob.
+
+File.fnmatch('cat',       'cat')        #=> true  # match entire string
+File.fnmatch('cat',       'category')   #=> false # only match partial string
+File.fnmatch('c{at,ub}s', 'cats')       #=> false # { } isn't supported
+
+File.fnmatch('c?t',     'cat')          #=> true  # '?' match only 1 character
+File.fnmatch('c??t',    'cat')          #=> false # ditto
+File.fnmatch('c*',      'cats')         #=> true  # '*' match 0 or more characters
+File.fnmatch('c*t',     'c/a/b/t')      #=> true  # ditto
+File.fnmatch('ca[a-z]', 'cat')          #=> true  # inclusive bracket expression
+File.fnmatch('ca[^t]',  'cat')          #=> false # exclusive bracket expression ('^' or '!')
+
+File.fnmatch('cat', 'CAT')                     #=> false # case sensitive
+File.fnmatch('cat', 'CAT', File::FNM_CASEFOLD) #=> true  # case insensitive
+
+File.fnmatch('?',   '/', File::FNM_PATHNAME)  #=> false # wildcard doesn't match '/' on FNM_PATHNAME
+File.fnmatch('*',   '/', File::FNM_PATHNAME)  #=> false # ditto
+File.fnmatch('[/]', '/', File::FNM_PATHNAME)  #=> false # ditto
+
+File.fnmatch('\?',   '?')                       #=> true  # escaped wildcard becomes ordinary
+File.fnmatch('\a',   'a')                       #=> true  # escaped ordinary remains ordinary
+File.fnmatch('\a',   '\a', File::FNM_NOESCAPE)  #=> true  # FNM_NOESACPE makes '\' ordinary
+File.fnmatch('[\?]', '?')                       #=> true  # can escape inside bracket expression
+
+File.fnmatch('*',   '.profile')                      #=> false # wildcard doesn't match leading
+File.fnmatch('*',   '.profile', File::FNM_DOTMATCH)  #=> true  # period by default.
+File.fnmatch('.*',  '.profile')                      #=> true
+
+rbfiles = '**' '/' '*.rb' # you don't have to do like this. just write in single string.
+File.fnmatch(rbfiles, 'main.rb')                    #=> false
+File.fnmatch(rbfiles, './main.rb')                  #=> false
+File.fnmatch(rbfiles, 'lib/song.rb')                #=> true
+File.fnmatch('**.rb', 'main.rb')                    #=> true
+File.fnmatch('**.rb', './main.rb')                  #=> false
+File.fnmatch('**.rb', 'lib/song.rb')                #=> true
+File.fnmatch('*',           'dave/.profile')                      #=> true
+
+pattern = '*' '/' '*'
+File.fnmatch(pattern, 'dave/.profile', File::FNM_PATHNAME)  #=> false
+File.fnmatch(pattern, 'dave/.profile', File::FNM_PATHNAME | File::FNM_DOTMATCH) #=> true
+
+pattern = '**' '/' 'foo'
+File.fnmatch(pattern, 'a/b/c/foo', File::FNM_PATHNAME)     #=> true
+File.fnmatch(pattern, '/a/b/c/foo', File::FNM_PATHNAME)    #=> true
+File.fnmatch(pattern, 'c:/a/b/c/foo', File::FNM_PATHNAME)  #=> true
+File.fnmatch(pattern, 'a/.b/c/foo', File::FNM_PATHNAME)    #=> false
+File.fnmatch(pattern, 'a/.b/c/foo', File::FNM_PATHNAME | File::FNM_DOTMATCH) #=> true
+ftype(file_name) → string
+Identifies the type of the named file; the return string is one of “file”, “directory”, “characterSpecial”, “blockSpecial”, “fifo”, “link”, “socket”, or “unknown”.
+
+File.ftype("testfile")            #=> "file"
+File.ftype("/dev/tty")            #=> "characterSpecial"
+File.ftype("/tmp/.X11-unix/X0")   #=> "socket"
+grpowned?(file_name) → true or false
+Returns true if the named file exists and the effective group id of the calling process is the owner of the file. Returns false on Windows.
+
+identical?(file_1, file_2) → true or false
+Returns true if the named files are identical.
+
+open("a", "w") {}
+p File.identical?("a", "a")      #=> true
+p File.identical?("a", "./a")    #=> true
+File.link("a", "b")
+p File.identical?("a", "b")      #=> true
+File.symlink("a", "c")
+p File.identical?("a", "c")      #=> true
+open("d", "w") {}
+p File.identical?("a", "d")      #=> false
+join(string, ...) → path
+Returns a new string formed by joining the strings using File::SEPARATOR.
+
+File.join("usr", "mail", "gumby")   #=> "usr/mail/gumby"
+lchmod(mode_int, file_name, ...) → integer
+Equivalent to File::chmod, but does not follow symbolic links (so it will change the permissions associated with the link, not the file referenced by the link). Often not available.
+
+lchown(owner_int, group_int, file_name,..) → integer
+Equivalent to File::chown, but does not follow symbolic links (so it will change the owner associated with the link, not the file referenced by the link). Often not available. Returns number of files in the argument list.
+
+link(old_name, new_name) → 0
+Creates a new name for an existing file using a hard link. Will not overwrite new_name if it already exists (raising a subclass of SystemCallError). Not available on all platforms.
+
+File.link("testfile", ".testfile")   #=> 0
+IO.readlines(".testfile")[0]         #=> "This is line one\n"
+lstat(file_name) → stat
+Same as File::stat, but does not follow the last symbolic link. Instead, reports on the link itself.
+
+File.symlink("testfile", "link2test")   #=> 0
+File.stat("testfile").size              #=> 66
+File.lstat("link2test").size            #=> 8
+File.stat("link2test").size             #=> 66
+mtime(file_name) → time
+Returns the modification time for the named file as a Time object.
+
+File.mtime("testfile")   #=> Tue Apr 08 12:58:04 CDT 2003
+new(filename, mode="r" [, opt]) → file
+new(filename [, mode [, perm]] [, opt]) → file
+Opens the file named by filename according to mode (default is “r”) and returns a new File object.
+
+Parameters¶ ↑
+
+See the description of class IO for a description of mode. The file mode may optionally be specified as a Fixnum by or-ing together the flags (O_RDONLY etc, again described under IO).
+
+Optional permission bits may be given in perm. These mode and permission bits are platform dependent; on Unix systems, see open(2) for details.
+
+Optional opt parameter is same as in IO.open.
+
+Examples¶ ↑
+
+f = File.new("testfile", "r")
+f = File.new("newfile",  "w+")
+f = File.new("newfile", File::CREAT|File::TRUNC|File::RDWR, 0644)
+open(filename, mode="r" [, opt]) → file
+open(filename [, mode [, perm]] [, opt]) → file
+open(filename, mode="r" [, opt]) {|file| block } → obj
+open(filename [, mode [, perm]] [, opt]) {|file| block } → obj
+With no associated block, File.open is a synonym for ::new. If the optional code block is given, it will be passed the opened file as an argument, and the File object will automatically be closed when the block terminates. In this instance, File.open returns the value of the block.
+
+See IO.new for a list of values for the opt parameter.
+
+owned?(file_name) → true or false
+Returns true if the named file exists and the effective used id of the calling process is the owner of the file.
+
+path(path) → string
+Returns the string representation of the path
+
+File.path("/dev/null")          #=> "/dev/null"
+File.path(Pathname.new("/tmp")) #=> "/tmp"
+pipe?(file_name) → true or false
+Returns true if the named file is a pipe.
+
+readable?(file_name) → true or false
+Returns true if the named file is readable by the effective user id of this process.
+
+readable_real?(file_name) → true or false
+Returns true if the named file is readable by the real user id of this process.
+
+readlink(link_name) → file_name
+Returns the name of the file referenced by the given link. Not available on all platforms.
+
+File.symlink("testfile", "link2test")   #=> 0
+File.readlink("link2test")              #=> "testfile"
+realdirpath(pathname [, dir_string]) → real_pathname
+Returns the real (absolute) pathname of pathname in the actual filesystem. The real pathname doesn’t contain symlinks or useless dots.
+
+If dir_string is given, it is used as a base directory for interpreting relative pathname instead of the current directory.
+
+The last component of the real pathname can be nonexistent.
+
+realpath(pathname [, dir_string]) → real_pathname
+Returns the real (absolute) pathname of pathname in the actual filesystem not containing symlinks or useless dots.
+
+If dir_string is given, it is used as a base directory for interpreting relative pathname instead of the current directory.
+
+All components of the pathname must exist when this method is called.
+
+rename(old_name, new_name) → 0
+Renames the given file to the new name. Raises a SystemCallError if the file cannot be renamed.
+
+File.rename("afile", "afile.bak")   #=> 0
+setgid?(file_name) → true or false
+Returns true if the named file has the setgid bit set.
+
+setuid?(file_name) → true or false
+Returns true if the named file has the setuid bit set.
+
+size(file_name) → integer
+Returns the size of file_name.
+
+size?(file_name) → Integer or nil
+Returns nil if file_name doesn’t exist or has zero size, the size of the file otherwise.
+
+socket?(file_name) → true or false
+Returns true if the named file is a socket.
+
+split(file_name) → array
+Splits the given string into a directory and a file component and returns them in a two-element array. See also File::dirname and File::basename.
+
+File.split("/home/gumby/.profile")   #=> ["/home/gumby", ".profile"]
+stat(file_name) → stat
+Returns a File::Stat object for the named file (see File::Stat).
+
+File.stat("testfile").mtime   #=> Tue Apr 08 12:58:04 CDT 2003
+sticky?(file_name) → true or false
+Returns true if the named file has the sticky bit set.
+
+symlink(old_name, new_name) → 0
+Creates a symbolic link called new_name for the existing file old_name. Raises a NotImplemented exception on platforms that do not support symbolic links.
+
+File.symlink("testfile", "link2test")   #=> 0
+symlink?(file_name) → true or false
+Returns true if the named file is a symbolic link.
+
+truncate(file_name, integer) → 0
+Truncates the file file_name to be at most integer bytes long. Not available on all platforms.
+
+f = File.new("out", "w")
+f.write("1234567890")     #=> 10
+f.close                   #=> nil
+File.truncate("out", 5)   #=> 0
+File.size("out")          #=> 5
+umask() → integer
+umask(integer) → integer
+Returns the current umask value for this process. If the optional argument is given, set the umask to that value and return the previous value. Umask values are subtracted from the default permissions, so a umask of 0222 would make a file read-only for everyone.
+
+File.umask(0006)   #=> 18
+File.umask         #=> 6
+unlink(file_name, ...) → integer
+Deletes the named files, returning the number of names passed as arguments. Raises an exception on any error. See also Dir::rmdir.
+
+utime(atime, mtime, file_name,...) → integer
+Sets the access and modification times of each named file to the first two arguments. Returns the number of file names in the argument list.
+
+world_readable?(file_name) → fixnum or nil
+If file_name is readable by others, returns an integer representing the file permission bits of file_name. Returns nil otherwise. The meaning of the bits is platform dependent; on Unix systems, see stat(2).
+
+File.world_readable?("/etc/passwd")           #=> 420
+m = File.world_readable?("/etc/passwd")
+sprintf("%o", m)                              #=> "644"
+world_writable?(file_name) → fixnum or nil
+If file_name is writable by others, returns an integer representing the file permission bits of file_name. Returns nil otherwise. The meaning of the bits is platform dependent; on Unix systems, see stat(2).
+
+File.world_writable?("/tmp")                  #=> 511
+m = File.world_writable?("/tmp")
+sprintf("%o", m)                              #=> "777"
+writable?(file_name) → true or false
+Returns true if the named file is writable by the effective user id of this process.
+
+writable_real?(file_name) → true or false
+Returns true if the named file is writable by the real user id of this process.
+
+zero?(file_name) → true or false
+Returns true if the named file exists and has a zero size.
+
+Public Instance Methods
+
+atime → time
+Returns the last access time (a Time object)
+
+for <i>file</i>, or epoch if <i>file</i> has not been accessed.
+
+  File.new("testfile").atime   #=> Wed Dec 31 18:00:00 CST 1969
+chmod(mode_int) → 0
+Changes permission bits on file to the bit pattern represented by mode_int. Actual effects are platform dependent; on Unix systems, see chmod(2) for details. Follows symbolic links. Also see File#lchmod.
+
+f = File.new("out", "w");
+f.chmod(0644)   #=> 0
+chown(owner_int, group_int ) → 0
+Changes the owner and group of file to the given numeric owner and group id’s. Only a process with superuser privileges may change the owner of a file. The current owner of a file may change the file’s group to any group to which the owner belongs. A nil or -1 owner or group id is ignored. Follows symbolic links. See also File#lchown.
+
+File.new("testfile").chown(502, 1000)
+ctime → time
+Returns the change time for file (that is, the time directory information about the file was changed, not the file itself).
+
+Note that on Windows (NTFS), returns creation time (birth time).
+
+File.new("testfile").ctime   #=> Wed Apr 09 08:53:14 CDT 2003
+flock (locking_constant )→ 0 or false
+Locks or unlocks a file according to locking_constant (a logical or of the values in the table below). Returns false if File::LOCK_NB is specified and the operation would otherwise have blocked. Not available on all platforms.
+
+Locking constants (in class File):
+
+LOCK_EX   | Exclusive lock. Only one process may hold an
+          | exclusive lock for a given file at a time.
+----------+------------------------------------------------
+LOCK_NB   | Don't block when locking. May be combined
+          | with other lock options using logical or.
+----------+------------------------------------------------
+LOCK_SH   | Shared lock. Multiple processes may each hold a
+          | shared lock for a given file at the same time.
+----------+------------------------------------------------
+LOCK_UN   | Unlock.
+Example:
+
+# update a counter using write lock
+# don't use "w" because it truncates the file before lock.
+File.open("counter", File::RDWR|File::CREAT, 0644) {|f|
+  f.flock(File::LOCK_EX)
+  value = f.read.to_i + 1
+  f.rewind
+  f.write("#{value}\n")
+  f.flush
+  f.truncate(f.pos)
+}
+
+# read the counter using read lock
+File.open("counter", "r") {|f|
+  f.flock(File::LOCK_SH)
+  p f.read
+}
+lstat → stat
+Same as IO#stat, but does not follow the last symbolic link. Instead, reports on the link itself.
+
+File.symlink("testfile", "link2test")   #=> 0
+File.stat("testfile").size              #=> 66
+f = File.new("link2test")
+f.lstat.size                            #=> 8
+f.stat.size                             #=> 66
+mtime → time
+Returns the modification time for file.
+
+File.new("testfile").mtime   #=> Wed Apr 09 08:53:14 CDT 2003
+path → filename
+Returns the pathname used to create file as a string. Does not normalize the name.
+
+File.new("testfile").path               #=> "testfile"
+File.new("/tmp/../tmp/xxx", "w").path   #=> "/tmp/../tmp/xxx"
+size → integer
+Returns the size of file in bytes.
+
+File.new("testfile").size   #=> 66
+path → filename
+Returns the pathname used to create file as a string. Does not normalize the name.
+
+File.new("testfile").path               #=> "testfile"
+File.new("/tmp/../tmp/xxx", "w").path   #=> "/tmp/../tmp/xxx"
+truncate(integer) → 0
+Truncates file to at most integer bytes. The file must be opened for writing. Not available on all platforms.
+
+f = File.new("out", "w")
+f.syswrite("1234567890")   #=> 10
+f.truncate(5)              #=> 0
+f.close()                  #=> nil
+File.size("out")           #=> 5
+Commenting is here to help enhance the documentation. For example, code samples, or clarification of the documentation.
+
+If you have questions about Ruby or the documentation, please post to one of the Ruby mailing lists. You will get better, faster, help that way.
+
+If you wish to post a correction of the docs, please do so, but also file bug report so that it can be corrected for the next release. Thank you.
+
+If you want to help improve the Ruby documentation, please visit Documenting-ruby.org.
+
+
+This page was generated for Ruby 1.9.3
+
+Ruby-doc.org is a service of James Britt and Neurogami, a software development company in Scottsdale, AZ.
+
+Generated with Ruby-doc Rdoc Generator 0.31.0.
