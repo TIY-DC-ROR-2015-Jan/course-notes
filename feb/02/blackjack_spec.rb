@@ -1,9 +1,5 @@
-#require './blackjack'
+require './blackjack'
 require 'minitest/autorun'
-
-class Card; end
-class Deck; end
-class Hand; end
 
 class TestCard < Minitest::Test
   def test_number_card_value
