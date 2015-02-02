@@ -13,4 +13,12 @@ class TestAllTheThings < Minitest::Test
     dog = Dog.new "rufus"
     assert_equal "rufus", dog.name
   end
+
+  def test_dogs_know_their_owner
+    james = Person.new "james"
+    rufus = Dog.new "rufus", james
+    assert_equal rufus.owner, james
+    assert rufus.owner.is_a?(Person)
+    assert_equal rufus.owner.name, "james"
+  end
 end
