@@ -11,10 +11,11 @@ def distribution rolls
   counts
 end
 
-results = distribution(100)
+number = ARGV.first.to_i
+results = distribution(number)
 total = 0
 results.each { |n, count| total += n * count }
-puts "Average score: #{total / 100.0}"
+puts "Average score: #{total / number.to_f}"
 
 results.sort_by { |n, count| n }.each do |n, count|
   puts "#{n.to_s.rjust 2}) #{'=' * count}"
