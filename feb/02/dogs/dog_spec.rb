@@ -21,4 +21,9 @@ class TestAllTheThings < Minitest::Test
     assert rufus.owner.is_a?(Person)
     assert_equal rufus.owner.name, "james"
   end
+
+  def test_dogs_can_bark
+    rufus = Dog.new "rufus"
+    assert_equal rufus.bark!, "Woof! Woof! My name is rufus!"
+  end
 end

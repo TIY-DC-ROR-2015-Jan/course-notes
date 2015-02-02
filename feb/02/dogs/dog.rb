@@ -12,4 +12,8 @@ class Dog
 	def owner
 		@owner
 	end
+
+	def bark!
+		"Woof! Woof! My name is #{@name}!"
+	end
 end
