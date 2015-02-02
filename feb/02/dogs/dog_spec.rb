@@ -26,4 +26,12 @@ class TestAllTheThings < Minitest::Test
     rufus = Dog.new "rufus"
     assert_equal rufus.bark!, "Woof! Woof! My name is rufus!"
   end
+
+  def test_people_can_feed_dogs
+    mason = Person.new "mason"
+    sadie = Dog.new "sadie", mason
+    mason.feed sadie
+    assert sadie.happy? # assert_equal sadie.happy?, true
+    refute sadie.hungry? # assert !sadie.hungry?
+  end
 end

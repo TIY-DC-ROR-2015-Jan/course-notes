@@ -9,4 +9,8 @@ class Person
     # Can't say `name_passed_in_during_new`
     @remembered_name
   end
+
+  def feed dog
+    dog.get_fed!
+  end
 end
