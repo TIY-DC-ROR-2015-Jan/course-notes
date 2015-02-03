@@ -9,12 +9,12 @@ puts "2) Dumb AI"
 puts "3) Smart AI"
 choice = gets.chomp.to_i
 
-if choice == 1
-  p = Player.new
+p = if choice == 1
+  Player.new
 elsif choice == 2
-  p = DumbAI.new
+  DumbAI.new
 else
-  p = SmartAI.new
+  SmartAI.new
 end
 
 until g.over?
