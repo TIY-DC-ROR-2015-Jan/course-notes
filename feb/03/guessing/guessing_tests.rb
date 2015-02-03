@@ -30,5 +30,14 @@ class GuessingTests < MiniTest::Test
 		g = Game.new
 		6.times { g.check_guess 101 }
     assert g.lost?
+    refute g.won?
+	end
+
+	def test_that_you_can_win_at_the_last_minute
+		g = Game.new
+		5.times { g.check_guess 101 }
+		g.check_guess g.answer
+    refute g.lost?
+    assert g.won?
 	end
 end
