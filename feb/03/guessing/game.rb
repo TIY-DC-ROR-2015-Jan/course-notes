@@ -13,6 +13,10 @@ class Game
 	# 	@answer
 	# end
 
+	def lost?
+		@guesses_left <= 0
+	end
+
 	def check_guess n
 		@guesses_left -= 1
 		if n > @answer # guess was high

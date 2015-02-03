@@ -19,4 +19,16 @@ class GuessingTests < MiniTest::Test
 		assert_equal "Your guess was too high", response
 		assert_equal g.guesses_left, 5
 	end
+
+	def test_that_you_can_win
+		g = Game.new
+		response = g.check_guess g.answer
+		assert_equal response, "You got it!"
+	end
+
+	def test_that_you_can_lose
+		g = Game.new
+		6.times { g.check_guess 101 }
+    assert g.lost?
+	end
 end
