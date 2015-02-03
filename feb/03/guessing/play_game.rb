@@ -9,13 +9,14 @@ puts "2) Dumb AI"
 puts "3) Smart AI"
 choice = gets.chomp.to_i
 
-p = if choice == 1
-  Player.new
+player_class = if choice == 1
+  Player
 elsif choice == 2
-  DumbAI.new
+  DumbAI
 else
-  SmartAI.new
+  SmartAI
 end
+p = player_class.new
 
 until g.over?
 	guess = p.get_guess
