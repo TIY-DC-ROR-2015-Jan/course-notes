@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'did_you_mean'
 
 # Implement these classes to get the specs below to pass
 class Dice
@@ -44,7 +45,7 @@ class TestDice < MiniTest::Test
   def test_it_rolls_a_reasonable_range
     d20 = Dice.new 20
     rolls = []
-    100.times { rolls.push d20.roll }
+    100.times { rolls.push d20.rolll }
 
     rolls.each do |value|
       assert_includes (1..20), value
