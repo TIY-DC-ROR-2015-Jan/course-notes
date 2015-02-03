@@ -2,7 +2,20 @@ require './game'
 require './player'
 
 g = Game.new
-p = DumbAI.new
+
+puts "Choose mode"
+puts "1) Human"
+puts "2) Dumb AI"
+puts "3) Smart AI"
+choice = gets.chomp.to_i
+
+if choice == 1
+  p = Player.new
+elsif choice == 2
+  p = DumbAI.new
+else
+  p = SmartAI.new
+end
 
 until g.over?
 	guess = p.get_guess
