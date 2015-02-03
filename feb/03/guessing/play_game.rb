@@ -2,7 +2,7 @@ require './game'
 require './player'
 
 g = Game.new
-p = SmartAI.new
+p = DumbAI.new
 
 until g.over?
 	guess = p.get_guess

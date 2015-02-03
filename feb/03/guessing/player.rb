@@ -3,15 +3,18 @@ class Player
 		print "What is your guess? "
 		gets.chomp.to_i
 	end
+
+	def update_guess r
+	end
 end
 
-class DumbAI
+class DumbAI < Player
 	def get_guess
 		rand 1..100
 	end
 end
 
-class SmartAI
+class SmartAI < Player
 	def initialize
 		@low = 0
 		@high = 100
