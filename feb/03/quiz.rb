@@ -2,11 +2,38 @@ require 'minitest/autorun'
 
 # Implement these classes to get the specs below to pass
 class Dice
+  def initialize sides_to_make_dice_with
+    @sides = sides_to_make_dice_with
+  end
+
+  def sides
+    @sides
+  end
+
+  def roll
+    rand 1 .. @sides
+  end
+
+  def loaded?
+    false
+  end
 end
 
 class LoadedDice < Dice
-end
+  def roll
+    # `super` means call the function in my parent
+    #super + 1
 
+    # roll once
+    # if below average, roll again
+    first_roll = super
+    if first_roll < (@sides / 2)
+      super
+    else
+      first_roll
+    end
+  end
+end
 
 class TestDice < MiniTest::Test
   def test_it_knows_how_many_sides_it_has
@@ -52,6 +79,6 @@ class TestDice < MiniTest::Test
     total = 0
     1000.times { total += d6.roll }
     average = total / 1000.0
-    assert average > 3.51
+    assert average > 4.0
   end
 end
