@@ -12,4 +12,10 @@ class GuessingTests < MiniTest::Test
 		g = Game.new
 		assert g.answer.is_a? Integer
 	end
+
+	def test_lets_you_know_if_you_guessed_high
+		g = Game.new
+		response = g.check_guess 101
+		assert_equal "Your guess was too high", response
+	end
 end
