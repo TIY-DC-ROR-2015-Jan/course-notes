@@ -1,11 +1,13 @@
 require './game'
+require './player'
 
 g = Game.new
+p = DumbAI.new
 
 until g.over?
-	print "What is your guess? "
-	guess = gets.chomp.to_i
-
+	guess = p.get_guess
+	puts "You guessed: #{guess}"
+	
 	response = g.check_guess guess
 	puts response
 end
