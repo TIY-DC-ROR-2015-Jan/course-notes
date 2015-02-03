@@ -17,5 +17,6 @@ class GuessingTests < MiniTest::Test
 		g = Game.new
 		response = g.check_guess 101
 		assert_equal "Your guess was too high", response
+		assert_equal g.guesses_left, 5
 	end
 end

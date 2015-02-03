@@ -14,6 +14,7 @@ class Game
 	# end
 
 	def check_guess n
+		@guesses_left -= 1
 		if n > @answer # guess was high
 			"Your guess was too high"
 		elsif n < @answer # guess was log
