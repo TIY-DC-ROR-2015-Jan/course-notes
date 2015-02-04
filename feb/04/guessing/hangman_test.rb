@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'minitest/autorun'
 
 require './hangman'
@@ -26,7 +29,9 @@ class HangmanTests < MiniTest::Test
     assert_equal h.board, "______"
     h.check_guess "a"
     assert_equal h.board, "_a_a_a"
+
     refute h.over?
+    assert_equal h.answer, "******"
   end
 
   def test_that_you_can_win
@@ -51,5 +56,7 @@ class HangmanTests < MiniTest::Test
     assert h.lost?
     assert h.over?
     refute h.won?
+
+    assert_equal h.answer, "papaya"
   end
 end
