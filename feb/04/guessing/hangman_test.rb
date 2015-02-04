@@ -19,4 +19,11 @@ class HangmanTests < MiniTest::Test
     h.check_guess "a"
     assert_equal h.guesses_left, 6
   end
+
+  def test_it_can_display_the_board
+    h = Hangman.new "banana"
+    assert_equal h.board, "______"
+    h.check_guess "a"
+    assert_equal h.board, "_a_a_a"
+  end
 end

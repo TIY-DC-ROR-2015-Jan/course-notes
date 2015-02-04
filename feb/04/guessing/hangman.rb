@@ -9,13 +9,27 @@ class Hangman
 
   def initialize answer=nil
     @guesses_left = 6
+    @guesses = []
     @answer = answer || Words.sample
   end
 
   def check_guess guess
+    @guesses.push guess
     unless @answer.include? guess
       @guesses_left -= 1
     end
+  end
+
+  def board
+    result = ""
+    @answer.split("").each do |letter|
+      if @guesses.include? letter
+        result += letter
+      else
+        result += "_"
+      end
+    end
+    result
   end
 
   # def guesses_left
