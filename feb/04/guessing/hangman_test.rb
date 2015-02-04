@@ -26,4 +26,18 @@ class HangmanTests < MiniTest::Test
     h.check_guess "a"
     assert_equal h.board, "_a_a_a"
   end
+
+  def test_that_you_can_win
+    word = Hangman::Words.sample
+    h = Hangman.new word
+
+    # Guess each letter in the word
+    word.split("").uniq.each { |letter| h.check_guess letter }
+    
+    refute h.board.include?("_")
+    assert_equal h.board, word
+  end
+
+  def test_that_you_can_lose
+  end
 end
