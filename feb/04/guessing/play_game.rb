@@ -27,4 +27,8 @@ until g.over?
   puts response
 end
 
-puts "You lost, loser" if g.lost?
+if g.won?
+  puts "You won!!!"
+elsif g.lost?
+  puts "You lost, loser"
+end

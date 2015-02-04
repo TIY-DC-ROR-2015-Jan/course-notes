@@ -36,6 +36,14 @@ class Hangman
     @guesses_left == 0
   end
 
+  def over?
+    won? || lost?
+  end
+
+  def won?
+    board == @answer
+  end
+
   # def guesses_left
   #   @guesses_left
   # end

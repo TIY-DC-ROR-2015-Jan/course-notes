@@ -18,6 +18,7 @@ class HangmanTests < MiniTest::Test
     h = Hangman.new "banana"
     h.check_guess "a"
     assert_equal h.guesses_left, 6
+    refute h.over?
   end
 
   def test_it_can_display_the_board
@@ -25,6 +26,7 @@ class HangmanTests < MiniTest::Test
     assert_equal h.board, "______"
     h.check_guess "a"
     assert_equal h.board, "_a_a_a"
+    refute h.over?
   end
 
   def test_that_you_can_win
@@ -34,8 +36,9 @@ class HangmanTests < MiniTest::Test
     # Guess each letter in the word
     word.split("").uniq.each { |letter| h.check_guess letter }
     
-    refute h.board.include?("_")
-    assert_equal h.board, word
+    assert h.over?
+    assert h.won?
+    refute h.lost?
   end
 
   def test_that_you_can_lose
@@ -46,5 +49,7 @@ class HangmanTests < MiniTest::Test
     misses.each { |letter| h.check_guess letter}
 
     assert h.lost?
+    assert h.over?
+    refute h.won?
   end
 end
