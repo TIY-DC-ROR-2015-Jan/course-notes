@@ -39,5 +39,12 @@ class HangmanTests < MiniTest::Test
   end
 
   def test_that_you_can_lose
+    h = Hangman.new "papaya"
+    # Guess six letters not in the word
+    # %w(b c d e f g)
+    misses = ["b","c","d","e","f","g"]
+    misses.each { |letter| h.check_guess letter}
+
+    assert h.lost?
   end
 end

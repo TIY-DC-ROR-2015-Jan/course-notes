@@ -32,6 +32,10 @@ class Hangman
     result
   end
 
+  def lost?
+    @guesses_left == 0
+  end
+
   # def guesses_left
   #   @guesses_left
   # end
