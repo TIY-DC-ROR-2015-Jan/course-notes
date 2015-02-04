@@ -15,5 +15,8 @@ class HangmanTests < MiniTest::Test
   end
 
   def test_it_doesnt_count_off_for_correct
+    h = Hangman.new "banana"
+    h.check_guess "a"
+    assert_equal h.guesses_left, 6
   end
 end

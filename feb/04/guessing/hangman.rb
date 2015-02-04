@@ -13,7 +13,9 @@ class Hangman
   end
 
   def check_guess guess
-    @guesses_left -= 1
+    unless @answer.include? guess
+      @guesses_left -= 1
+    end
   end
 
   # def guesses_left
