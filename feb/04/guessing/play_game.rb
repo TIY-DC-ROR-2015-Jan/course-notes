@@ -1,22 +1,20 @@
 require './game'
+require './hangman'
 require './player'
 
-g = Game.new
-
 puts "Choose mode"
-puts "1) Human"
-puts "2) Dumb AI"
-puts "3) Smart AI"
+puts "1) Guessing Game"
+puts "2) Hangman"
 choice = gets.chomp.to_i
 
-player_class = if choice == 1
-  Player
-elsif choice == 2
-  DumbAI
+if choice == 1
+  game_class = Game
 else
-  SmartAI
+  game_class = Hangman
 end
-p = player_class.new
+g = game_class.new
+
+p = Player.new
 
 until g.over?
   guess = p.get_guess
@@ -31,4 +29,5 @@ if g.won?
   puts "You won!!!"
 elsif g.lost?
   puts "You lost, loser"
+  puts "The answer was: #{g.answer}"
 end

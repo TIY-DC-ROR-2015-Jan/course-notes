@@ -27,6 +27,7 @@ class Game
   end
 
   def check_guess n
+    n = n.to_i
     if n > @answer # guess was high
       @guesses_left -= 1
       "Your guess was too high"

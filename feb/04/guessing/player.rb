@@ -1,7 +1,7 @@
 class Player
   def get_guess
     print "What is your guess? "
-    gets.chomp.to_i
+    gets.chomp
   end
 
   def update_guess r

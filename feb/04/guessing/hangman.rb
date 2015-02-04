@@ -18,6 +18,8 @@ class Hangman
     unless @answer.include? guess
       @guesses_left -= 1
     end
+
+    "#{board}     Guesses left: #{guesses_left}"
   end
 
   def board
@@ -42,6 +44,14 @@ class Hangman
 
   def won?
     board == @answer
+  end
+
+  def answer
+    if over?
+      @answer
+    else
+      '*' * @answer.length
+    end
   end
 
   # def guesses_left
