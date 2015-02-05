@@ -28,19 +28,34 @@ class Grid
   def display_row row
     row.each do |cell|
       if cell.alive?
-        print "X"
+        print "█"
       else
         print " "
       end
     end
   end
 
-  def take_turn!
+  def each_cell
     @board.each do |row|
       row.each do |cell|
-        cell.take_turn!
+        yield cell
       end
     end
+  end
+
+  def take_turn!
+    each_cell { |c| c.decide  }
+    each_cell { |c| c.update! }
+    # @board.each do |row|
+    #   row.each do |cell|
+    #     cell.decide
+    #   end
+    # end
+    # @board.each do |row|
+    #   row.each do |cell|
+    #     cell.update!
+    #   end
+    # end
   end
 
   def in_bounds? i,j
@@ -77,7 +92,7 @@ end
 if $PROGRAM_NAME == __FILE__
   grid = Grid.new 40, 40
 
-  10000.times do |i|
+  loop do |i|
     system "clear"
     puts "Turn #{i}"
     grid.display
