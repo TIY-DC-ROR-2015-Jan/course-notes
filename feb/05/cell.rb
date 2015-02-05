@@ -10,6 +10,8 @@ class Cell
     living_neighbors = neighbors.count { |n| n.alive? }
     if living_neighbors < 2
       @alive = false
+    elsif living_neighbors > 3
+      @alive = false
     end
   end
 

@@ -27,7 +27,20 @@ class LifeTest < MiniTest::Test
     c.neighbors.push d
 
     c.take_turn!
+    assert c.dead?
+  end
 
+  def test_cells_die_from_overcrowding
+    c = Cell.new
+    c.revive!
+
+    4.times do
+      d = Cell.new
+      d.revive!
+      c.neighbors.push d
+    end
+
+    c.take_turn!
     assert c.dead?
   end
 end
