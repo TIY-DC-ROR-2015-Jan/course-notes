@@ -22,6 +22,8 @@ high = gets.chomp.to_i
 # guesses = gets.chomp.to_i
 
 g = Game.new { :low => low, :high => high }
+# g = Game.new { low: low, high: high }
+# g = Game.new low: low, high: high
 p = Player.new
 
 until g.over?

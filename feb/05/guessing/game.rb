@@ -1,5 +1,5 @@
 class Game
-  def initialize options
+  def initialize options={}
     @high = options[:high] || 100
     @low  = options[:low] || 1
     @guesses_left = options[:guesses] || 6
