@@ -43,4 +43,18 @@ class LifeTest < MiniTest::Test
     c.take_turn!
     assert c.dead?
   end
+
+  def test_cells_revive_sometimes
+    c = Cell.new
+    assert c.dead?
+
+    3.times do
+      d = Cell.new
+      d.revive!
+      c.neighbors.push d
+    end
+
+    c.take_turn!
+    assert c.alive?
+  end
 end

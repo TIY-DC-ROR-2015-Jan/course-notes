@@ -12,6 +12,8 @@ class Cell
       @alive = false
     elsif living_neighbors > 3
       @alive = false
+    elsif living_neighbors == 3 && dead?
+      revive!
     end
   end
 
