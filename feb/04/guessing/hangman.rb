@@ -1,3 +1,5 @@
+require './winnable'
+
 class Hangman
   attr_reader :guesses_left
 
@@ -38,9 +40,10 @@ class Hangman
     @guesses_left == 0
   end
 
-  def over?
-    won? || lost?
-  end
+  include Winnable
+  # def over?
+  #   won? || lost?
+  # end
 
   def won?
     board == @answer

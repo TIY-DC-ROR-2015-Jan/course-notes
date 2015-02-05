@@ -1,3 +1,5 @@
+require './winnable'
+
 class Game
   def initialize
     @guesses_left = 6
@@ -22,9 +24,10 @@ class Game
     @got_it
   end
 
-  def over?
-    won? || lost?
-  end
+  include Winnable
+  # def over?
+  #   won? || lost?
+  # end
 
   def check_guess n
     n = n.to_i
