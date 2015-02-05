@@ -1,10 +1,11 @@
-require './winnable'
-
 class Game
-  def initialize
-    @guesses_left = 6
-    @answer = rand 1 .. 100
+  def initialize high=nil, low=nil, guesses=nil
+    @high = high || 100
+    @low  = low  || 1
+    @guesses_left = guesses || 6
+    @answer = rand @low .. @high
     @got_it = false
+    puts "Guessing from #{@low} up to #{@high}, #{@guesses_left} chances"
   end
 
   attr_reader :guesses_left, :answer
@@ -24,13 +25,11 @@ class Game
     @got_it
   end
 
-  include Winnable
-  # def over?
-  #   won? || lost?
-  # end
+  def over?
+    won? || lost?
+  end
 
   def check_guess n
-    n = n.to_i
     if n > @answer # guess was high
       @guesses_left -= 1
       "Your guess was too high"

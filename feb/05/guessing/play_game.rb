@@ -18,10 +18,10 @@ print "Minimum number > "
 low = gets.chomp.to_i
 print "Maximum number > "
 high = gets.chomp.to_i
-print "Guesses > "
-guesses = gets.chomp.to_i
+# print "Guesses > "
+# guesses = gets.chomp.to_i
 
-g = Game.new guesses, low, high
+g = Game.new { :low => low, :high => high }
 p = Player.new
 
 until g.over?

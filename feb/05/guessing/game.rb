@@ -1,8 +1,8 @@
 class Game
-  def initialize high=nil, low=nil, guesses=nil
-    @high = high || 100
-    @low  = low  || 1
-    @guesses_left = guesses || 6
+  def initialize options
+    @high = options[:high] || 100
+    @low  = options[:low] || 1
+    @guesses_left = options[:guesses] || 6
     @answer = rand @low .. @high
     @got_it = false
     puts "Guessing from #{@low} up to #{@high}, #{@guesses_left} chances"
