@@ -1,0 +1,70 @@
+require "pry"
+require "./db/setup"
+require "./lib/all"
+
+puts "Running gifbot"
+
+# Print out selected (add, list, surprise)
+# Otherwise prints help
+
+def add url
+  # Gif.create! url: url
+  g = Gif.new
+  g.views = 0
+  g.url = url
+  g.save!
+end
+
+def list
+  Gif.order(created_at: :desc).each do |g|
+    puts "#{g.id})\t#{g.created_at}\t#{g.views}\t#{g.url}"
+  end
+end
+
+def surprise! tag_name=nil
+  if tag_name
+    tag = Tag.where(name: tag_name).first!
+
+    gif_ids = []
+    GifTag.where(tag_id: tag.id).find_each do |join_row|
+      gif_ids.push join_row.gif_id
+    end
+    selected_gif_id = gif_ids.sample
+    g = Gif.find selected_gif_id
+  else
+    g = Gif.order("RANDOM()").first
+  end
+  g.views += 1
+  g.save!
+  puts "Opening #{g.url}"
+  `open '#{g.url}'`
+end
+
+def tag gif_id, tag_name
+  # t = Tag.where(name: tag_name).first_or_create!
+  t = Tag.where(name: tag_name).first
+  if t == nil
+    t = Tag.create name: tag_name
+  end
+  # Now we have a saved tag t
+
+  GifTag.create gif_id: gif_id, tag_id: t.id
+end
+
+command = ARGV.shift
+case command
+when "add"
+  # Save a gif with the given url
+  url = ARGV.first
+  add url
+when "list"
+  list
+when "surprise"
+  tag_name = ARGV.first
+  surprise! tag_name
+when "tag"
+  gif_id, tag_name = ARGV
+  tag gif_id, tag_name
+else
+  puts "Wat?"
+end
