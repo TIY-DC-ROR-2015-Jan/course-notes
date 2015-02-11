@@ -19,7 +19,18 @@ else
 end
 
 # If there was a prexisting game, h should be that
-h = Hangman.new
+if ph.answer.nil?
+  puts "Starting a new game"
+  h = Hangman.new
+else
+  # Need to set answer, guesses_left and guesses
+  puts "Picking back up from where you left off"
+  h = Hangman.new(
+    answer:       ph.answer,
+    guesses_left: ph.tries_left,
+    guesses:      ph.guesses.split("") # Need an array, not string
+  )
+end
 
 begin
   until h.over?
@@ -31,10 +42,16 @@ begin
 rescue Interrupt
   puts "We should save something here ..."
   # Write where we are to the history
+  ph.update(
+    tries_left: h.guesses_left,
+    answer:     h.answer,
+    guesses:    h.guesses.join("")
+  )
   exit
 end
 
 # Clear out previous game ... ?
+ph.update(tries_left: nil, answer: nil, guesses: nil)
 
 # Update history
 if h.won?

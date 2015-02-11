@@ -1,5 +1,5 @@
 class Hangman
-  attr_reader :guesses_left
+  attr_reader :guesses_left, :guesses
 
   Words = File.
     read("/usr/share/dict/words").
@@ -7,10 +7,10 @@ class Hangman
     select { |w| w.length < 8 && w.length > 1 }.
     map { |w| w.chomp }
 
-  def initialize answer=nil
-    @guesses_left = 6
-    @guesses = []
-    @answer = answer || Words.sample
+  def initialize opts={}
+    @guesses_left = opts[:guesses_left] || 6
+    @guesses      = opts[:guesses] || []
+    @answer       = opts[:answer] || Words.sample
   end
 
   def check_guess guess
@@ -48,11 +48,7 @@ class Hangman
   end
 
   def answer
-    if over?
-      @answer
-    else
-      '*' * @answer.length
-    end
+    @answer
   end
 
   # def guesses_left
