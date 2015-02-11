@@ -175,14 +175,14 @@ class Player
     get_location "Your move, Captain?"
   end
 
-  def take_move row, col
-    return :invalid unless @board.valid?(row, col)
+  def was_hit? row, col
+    raise KeyError unless @board.valid?(row, col)
 
     if @board.occupied?(row, col)
       @board.fire_on!(row, col)
-      :hit
+      true
     else
-      :miss
+      false
     end
   end
 
@@ -204,16 +204,15 @@ class Battleship
 
     row, col = player.get_move opponent.board
 
-    case opponent.take_move row, col
-    when :hit
+    if oppenent.was_hit? row, col
       puts "Hit!"
-    when :miss
+    else
       puts "Miss!"
-    when :invalid
-      puts "#{row}#{col} is invalid. Forfeiting turn."
     end
 
     gets
+  rescue KeyError
+    puts "Invalid move"
   end
 
   def play_round

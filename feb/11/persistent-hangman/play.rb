@@ -18,14 +18,23 @@ else
   ph = History.create(name: name, wins: 0, losses: 0)
 end
 
+# If there was a prexisting game, h should be that
 h = Hangman.new
 
-until h.over?
-  print "> "
-  guess = gets.chomp
+begin
+  until h.over?
+    print "> "
+    guess = gets.chomp
 
-  puts h.check_guess guess
+    puts h.check_guess guess
+  end
+rescue Interrupt
+  puts "We should save something here ..."
+  # Write where we are to the history
+  exit
 end
+
+# Clear out previous game ... ?
 
 # Update history
 if h.won?
