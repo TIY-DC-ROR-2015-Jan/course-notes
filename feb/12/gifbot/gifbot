@@ -4,15 +4,8 @@ require "./lib/all"
 
 puts "Running gifbot"
 
-# Print out selected (add, list, surprise)
-# Otherwise prints help
-
 def add url
-  # Gif.create! url: url
-  g = Gif.new
-  g.views = 0
-  g.url = url
-  g.save!
+  Gif.create! views: 0, url: url
 end
 
 def list
@@ -22,18 +15,13 @@ def list
 end
 
 def surprise! tag_name=nil
-  if tag_name
-    tag = Tag.where(name: tag_name).first!
-
-    gif_ids = []
-    GifTag.where(tag_id: tag.id).find_each do |join_row|
-      gif_ids.push join_row.gif_id
-    end
-    selected_gif_id = gif_ids.sample
-    g = Gif.find selected_gif_id
+  tags = if tag_name
+    Tag.where(name: tag_name).first!
   else
-    g = Gif.order("RANDOM()").first
+    Tag.all
   end
+  g = tag.gifs.order("RANDOM()").first
+
   g.views += 1
   g.save!
   puts "Opening #{g.url}"
@@ -41,14 +29,9 @@ def surprise! tag_name=nil
 end
 
 def tag gif_id, tag_name
-  # t = Tag.where(name: tag_name).first_or_create!
-  t = Tag.where(name: tag_name).first
-  if t == nil
-    t = Tag.create name: tag_name
-  end
-  # Now we have a saved tag t
-
-  GifTag.create gif_id: gif_id, tag_id: t.id
+  t = Tag.where(name: tag_name).first_or_create!
+  # Note: we're now verifying the gif_id is valid before saving a tag
+  Gif.find(gif_id).tags << t
 end
 
 command = ARGV.shift
