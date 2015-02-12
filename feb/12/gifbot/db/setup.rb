@@ -11,3 +11,5 @@ end
 
 raise "Could not find database config for environment" unless db_config
 ActiveRecord::Base.establish_connection(env_config)
+
+ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
