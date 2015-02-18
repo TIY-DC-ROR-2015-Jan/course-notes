@@ -1,6 +1,10 @@
 require 'sinatra/base'
 require 'pry'
 
+def play sample
+  system "afplay samples/#{sample}.mp3"
+end
+
 class MyApp < Sinatra::Base
   # Routes POST /first => action
   # post '/first' do
@@ -11,19 +15,23 @@ class MyApp < Sinatra::Base
   #   "DELETEd to /second"
   # end
   post '/harder' do
-    system "afplay samples/Harder1.mp3"
+    if params[:v].to_i == 2 # they asked for v=2
+      play "Harder2"
+    else
+      play "Harder1"
+    end
   end
 
   post '/better' do
-    system "afplay samples/Better1.mp3"
+    play "Better1"
   end
 
   post '/faster' do
-    system "afplay samples/Faster1.mp3"
+    play "Faster1"
   end
 
   post '/stronger' do
-    system "afplay samples/Stronger1.mp3"
+    play "Stronger1"
   end
 end
 
