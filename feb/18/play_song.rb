@@ -1,10 +1,12 @@
 require 'pry'
-
+require 'httparty'
 
 class Player
+  include HTTParty
+  base_uri "http://localhost:4567"
+
   def method_missing name, *args
-    v = [1,2].sample
-    `curl -XPOST http://localhost:4567/#{name}?v=#{v}`
+    Player.post "/#{name}", query: { v: [1,2].sample }
   end
 end
 
