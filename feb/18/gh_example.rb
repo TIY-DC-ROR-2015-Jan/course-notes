@@ -17,6 +17,7 @@ CLASS_NAME = "TIY-DC-ROR-2015-Jan"
 class Github # < HTTParty
   include HTTParty
   base_uri "https://api.github.com"
+  #default_options headers: ...
 
   def initialize
     @headers = {
