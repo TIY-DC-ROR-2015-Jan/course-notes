@@ -49,6 +49,11 @@ class MyApp < Sinatra::Base
       play "#{w}#{variant}"
     end
   end
+
+  # DANGER!!!
+  # post '/:sample' do
+  #   play params[:sample]
+  # end
 end
 
 MyApp.run! # if MyApp.app_name == $PROGRAM_NAME
