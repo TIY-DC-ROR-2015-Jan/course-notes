@@ -18,6 +18,13 @@ class Github # < HTTParty
   include HTTParty
   base_uri "https://api.github.com"
 
+  def initialize
+    @headers = {
+      "Authorization" => "token #{TOKEN}",
+      "User-Agent"    => "classbot"
+    }
+  end
+
   def repos org
     Github.get("/orgs/#{org}/repos")
   end
@@ -25,10 +32,23 @@ class Github # < HTTParty
   def update_org org, new_description
     Github.patch("/orgs/#{org}",
       body: { :description => new_description }.to_json,
-      headers: {
-        "Authorization" => "token #{TOKEN}",
-        "User-Agent"    => "classbot"
+      headers: @headers
+    )
+  end
+
+  def post_gist file_name, contents
+    body = {
+      public: true,
+      files: {
+        file_name => {
+          content: contents
+        }
       }
+    }
+
+    Github.post("/gists",
+      body: body.to_json,
+      headers: @headers
     )
   end
 end
