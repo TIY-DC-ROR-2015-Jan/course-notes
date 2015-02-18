@@ -6,6 +6,9 @@ def play sample
 end
 
 class MyApp < Sinatra::Base
+  set :bind, '0.0.0.0'
+  set :port, 3000
+  
   # Routes POST /first => action
   # post '/first' do
   #   "POSTed to /first"
