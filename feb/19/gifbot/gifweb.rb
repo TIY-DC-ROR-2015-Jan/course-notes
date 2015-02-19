@@ -8,6 +8,15 @@ class Gifweb < Sinatra::Base
   get '/gifs' do
     Gif.order(created_at: :desc).to_json
   end
+
+  get '/gifs/random' do
+    # if params["tag"]
+    #   Gif.random(params["tag"]).to_json
+    # else
+    #   Gif.random.to_json
+    # end
+    Gif.random(params["tag"]).to_json
+  end
 end
 
 Gifweb.run!
