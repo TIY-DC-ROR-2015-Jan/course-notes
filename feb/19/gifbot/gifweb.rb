@@ -7,10 +7,10 @@ require "./lib/all"
 class Gifweb < Sinatra::Base
   set :bind, '0.0.0.0'
   set :port, '3000'
-  
+
   def current_user
-    #username = headers["Authorization"]
-    username = params["user"]
+    #username = params["user"]
+    username = request.env["HTTP_AUTHORIZATION"]
     User.find_by_name username
   end
 
