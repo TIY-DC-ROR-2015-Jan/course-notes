@@ -23,9 +23,7 @@ def surprise! tag_name=nil
 end
 
 def tag gif_id, tag_name
-  t = Tag.where(name: tag_name).first_or_create!
-  # Note: we're now verifying the gif_id is valid before saving a tag
-  Gif.find(gif_id).tags << t
+  Gif.find(gif_id).add_tag tag_name
 end
 
 command = ARGV.shift

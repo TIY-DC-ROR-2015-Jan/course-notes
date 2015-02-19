@@ -17,6 +17,9 @@ class Gifweb < Sinatra::Base
   post '/gifs' do
     # views: 0
     g = Gif.create! url: params["url"]
+    if params["tag"] # given a tag name
+      g.add_tag params["tag"]
+    end
     g.to_json
   end
 end

@@ -14,4 +14,10 @@ class Gif < ActiveRecord::Base
       Gif.order("RANDOM()").first
     end
   end
+
+  def add_tag tag_name
+    t = Tag.where(name: tag_name).first_or_create!
+    # self.tags << t
+    tags << t
+  end
 end
