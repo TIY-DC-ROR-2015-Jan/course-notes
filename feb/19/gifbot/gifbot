@@ -1,0 +1,53 @@
+require "pry"
+require "./db/setup"
+require "./lib/all"
+
+puts "Running gifbot"
+
+def add url
+  Gif.create! views: 0, url: url
+end
+
+def list
+  Gif.order(created_at: :desc).each do |g|
+    puts "#{g.id})\t#{g.created_at}\t#{g.views}\t#{g.url}"
+  end
+end
+
+def surprise! tag_name=nil
+  tags = if tag_name
+    Tag.where(name: tag_name).first!
+  else
+    Tag.all
+  end
+  g = tag.gifs.order("RANDOM()").first
+
+  g.views += 1
+  g.save!
+  puts "Opening #{g.url}"
+  `open '#{g.url}'`
+end
+
+def tag gif_id, tag_name
+  t = Tag.where(name: tag_name).first_or_create!
+  # Note: we're now verifying the gif_id is valid before saving a tag
+  Gif.find(gif_id).tags << t
+end
+
+command = ARGV.shift
+case command
+when "add"
+  # Save a gif with the given url
+  url = ARGV.first
+  add url
+when "list"
+  list
+when "surprise"
+  tag_name = ARGV.first
+  surprise! tag_name
+when "tag"
+  gif_id, tag_name = ARGV
+  tag gif_id, tag_name
+else
+  puts "Wat?"
+end
