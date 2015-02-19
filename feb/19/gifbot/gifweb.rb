@@ -5,7 +5,13 @@ require "./db/setup"
 require "./lib/all"
 
 class Gifweb < Sinatra::Base
+  set :bind, '0.0.0.0'
+  set :port, '3000'
+  
   def current_user
+    #username = headers["Authorization"]
+    username = params["user"]
+    User.find_by_name username
   end
 
   get '/gifs' do
@@ -19,7 +25,8 @@ class Gifweb < Sinatra::Base
 
   post '/gifs' do
     # views: 0
-    g = Gif.create! url: params["url"]
+    # user_id: current_user.id
+    g = current_user.gifs.create! url: params["url"]
     if params["tag"] # given a tag name
       g.add_tag params["tag"]
     end
