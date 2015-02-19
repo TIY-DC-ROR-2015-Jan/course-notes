@@ -26,7 +26,9 @@ class Gifweb < Sinatra::Base
   patch '/gifs/:id' do
     # params[:id] is the id from path
     # add tag from params to gif with given id
-    Gif.find(params[:id]).add_tag params["tag"]
+    g = Gif.find(params[:id])
+    g.add_tag params["tag"]
+    g.to_json
   end
 end
 
