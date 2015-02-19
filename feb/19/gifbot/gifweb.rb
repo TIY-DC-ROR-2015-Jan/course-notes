@@ -15,7 +15,8 @@ class Gifweb < Sinatra::Base
     # else
     #   Gif.random.to_json
     # end
-    Gif.random(params["tag"]).to_json
+    g = Gif.random params["tag"]
+    redirect g.url
   end
 end
 
