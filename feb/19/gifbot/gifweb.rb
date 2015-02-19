@@ -5,6 +5,9 @@ require "./db/setup"
 require "./lib/all"
 
 class Gifweb < Sinatra::Base
+  def current_user
+  end
+
   get '/gifs' do
     Gif.order(created_at: :desc).to_json
   end
@@ -29,6 +32,16 @@ class Gifweb < Sinatra::Base
     g = Gif.find(params[:id])
     g.add_tag params["tag"]
     g.to_json
+  end
+
+  delete '/gifs/:id' do
+    g = Gif.find params["id"]
+    if current_user == g.user # allowed
+      g.delete
+      "Ok, deleted"
+    else
+      "Denied"
+    end
   end
 end
 
