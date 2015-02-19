@@ -10,13 +10,14 @@ class Gifweb < Sinatra::Base
   end
 
   get '/gifs/random' do
-    # if params["tag"]
-    #   Gif.random(params["tag"]).to_json
-    # else
-    #   Gif.random.to_json
-    # end
     g = Gif.random params["tag"]
     redirect g.url
+  end
+
+  post '/gifs' do
+    # views: 0
+    g = Gif.create! url: params["url"]
+    g.to_json
   end
 end
 
