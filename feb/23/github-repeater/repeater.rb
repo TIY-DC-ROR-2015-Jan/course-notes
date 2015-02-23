@@ -28,6 +28,12 @@ class GithubRepeater < Sinatra::Base
     # content_type :json
     # @repos.to_json
   end
+
+  post '/take_post' do
+    puts params
+    content_type :json
+    params.to_json
+  end
 end
 
 GithubRepeater.run!
