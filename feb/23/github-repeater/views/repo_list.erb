@@ -1,0 +1,25 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>It Works!</h1>
+    <h3>Math</h3>
+    <%= 2 + 2 %> <!-- Evaluates Ruby, puts result in page -->
+    <h3>Data from Controller</h3>
+    <%= @data_from_controller %>
+    <h3>Logic in Template</h3>
+    <% if 5.even? %>
+      <p>5 is even</p>
+    <% else %>
+      <p>5 is odd</p>
+    <% end %>
+    <h3>Building a List from Ruby</h3>
+    <ul>
+      <% @repos.each do |repo| %>
+        <li>
+          <a href="<%= repo["html_url"] %>"><%= repo["name"] %></a>
+        </li>
+      <% end %>
+    </ul>
+  </body>
+</html>
