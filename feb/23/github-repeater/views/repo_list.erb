@@ -1,44 +1,50 @@
 <html>
   <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <h1>It Works!</h1>
-    <h3>Math</h3>
-    <%= 2 + 2 %> <!-- Evaluates Ruby, puts result in page -->
+    <div class="container">
+      <div class="well">
+        <h1>It Works!</h1>
+        <h3>Math</h3>
+        <code>2 + 2 = <%= 2 + 2 %></code>
+         <!-- Evaluates Ruby, puts result in page -->
 
-    <h3>Data from Controller</h3>
-    <%= @data_from_controller %>
+        <h3>Data from Controller</h3>
+        <%= @data_from_controller %>
 
-    <h3>Logic in Template</h3>
-    <% if 5.even? %>
-      <p>5 is even</p>
-    <% else %>
-      <p>5 is odd</p>
-    <% end %>
-
-    <h3>Building a Table from Ruby</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Owner</th>
-          <th>Size</th>
-          <th>Watchers</th>
-          <th>Stars</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @repos.each do |repo| %>
-          <tr>
-            <td><%= repo["name"] %></td>
-            <td><%= repo["owner"]["login"] %></td>
-            <td><%= repo["size"] %></td>
-            <td><%= repo["watchers_count"] %></td>
-            <td><%= repo["stargazers_count"] %></td>
-          </tr>
+        <h3>Logic in Template</h3>
+        <% if 5.even? %>
+          <p>5 is even</p>
+        <% else %>
+          <p>5 is odd</p>
         <% end %>
-      </tbody>
-      
-    </table>
+      </div>
+
+      <h3>Building a Table from Ruby</h3>
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Size</th>
+            <th>Watchers</th>
+            <th>Stars</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @repos.each do |repo| %>
+            <tr>
+              <td><%= repo["name"] %></td>
+              <td><%= repo["owner"]["login"] %></td>
+              <td><%= repo["size"] %></td>
+              <td><%= repo["watchers_count"] %></td>
+              <td><%= repo["stargazers_count"] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        
+      </table>
+    </div>
   </body>
 </html>
