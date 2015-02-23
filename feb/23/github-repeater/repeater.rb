@@ -22,8 +22,7 @@ def find_repos username
 end
 
 class GithubRepeater < Sinatra::Base
-  get '/users/:username' do
-    @data_from_controller = "ASDFASDFASDF"
+  get '/users' do
     @repos = find_repos params[:username]
     erb :repo_list
     # content_type :json
